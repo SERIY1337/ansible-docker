@@ -1,0 +1,30 @@
+---
+# handlers file for install-docker
+
+- name: Install docker-ce and docker-compose
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - docker-ce
+    - docker-compose
+
+- name: Enable to start docker on boot
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Create docker group
+  group:
+    name: docker
+    state: present
+
+- name: Add user to docker group
+  user:
+    name: "{{ user }}"
+    groups: docker
+    append: yes
+
+    
+

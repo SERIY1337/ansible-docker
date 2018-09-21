@@ -25,7 +25,9 @@
      update_cache: yes
      state: present
      notify:
-       - Install docker-ce and docker-compose
+       - Install docker-ce
+       - Install docker-compose
        - Enable to start docker on boot
+       - Apply executable permissions to the binary
        - Create docker group
        - Add "{{ remote_user }}"

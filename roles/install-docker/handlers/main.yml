@@ -1,19 +1,26 @@
 ---
 # handlers file for install-docker
 
-- name: Install docker-ce and docker-compose
+- name: Install docker-ce
   apt:
-    name: "{{ item }}"
+    name: docker-ce
     state: latest
-  with_items:
-    - docker-ce
-    - docker-compose
+
+- name: Install docker-compose
+  get_url:
+    url: https://github.com/docker/compose/releases/download/1.22.0/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}
+    dest: /usr/local/bin/docker-compose
 
 - name: Enable to start docker on boot
   systemd:
     name: docker
     state: started
     enabled: yes
+  
+- name: Apply executable permissions to the binary
+  file:
+    dest: /usr/local/bin/docker-compose
+    mode: +x
 
 - name: Create docker group
   group:

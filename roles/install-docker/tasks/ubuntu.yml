@@ -14,7 +14,7 @@
 
  - name: Add docker key
    apt_key:
-     url: https://download.docker.com/ubuntu/debian/gpg
+     url: https://download.docker.com/linux/ubuntu/gpg
      id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
      state: present
 
@@ -30,4 +30,4 @@
        - Enable to start docker on boot
        - Apply executable permissions to the binary
        - Create docker group
-       - Add "{{ remote_user }}"
+       - Add user to docker group
